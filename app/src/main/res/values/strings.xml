@@ -2,4 +2,7 @@
     <string name="app_name">Music Player</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
+    <string name="spotify_client_id">12c7e93526894cab947d17c753af6174</string>
+    <string name="spotify_redirect_uri">http://localhost:8888/callback</string>
+
 </resources>

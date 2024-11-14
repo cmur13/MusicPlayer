@@ -50,6 +50,14 @@
             style="@style/Widget.AppCompat.Button.Borderless"
             android:textColor="@color/black" />
 
+        <Button
+            android:id="@+id/spotifyLoginButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Login with Spotify"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp" />
+
     </LinearLayout>
 
 </LinearLayout>
