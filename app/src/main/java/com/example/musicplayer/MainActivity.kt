@@ -1,6 +1,7 @@
 package com.example.musicplayer
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.provider.MediaStore
@@ -24,7 +25,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.playlistE.setOnClickListener {
+            val intent = Intent(this, PlaylistActivity::class.java)
+            startActivity(intent)
+        }
 
+
+        // Check for storage permissions
         if (ContextCompat.checkSelfPermission(
                 this,
                 Manifest.permission.READ_EXTERNAL_STORAGE
@@ -35,11 +42,22 @@ class MainActivity : AppCompatActivity() {
             requestStoragePermission()
         }
 
+        // Shuffle button listener
         binding.shuffleE.setOnClickListener {
             if (::musicPlayer.isInitialized) {
-                musicPlayer.shuffleAndPlay() // Call shuffle and play from MusicPlayer
+                musicPlayer.shuffleAndPlay()
             } else {
                 Toast.makeText(this, "No songs available", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        // Favorites button listener
+        binding.favoriteE.setOnClickListener {
+            val favoriteSongs = songs.filter { it.isFavorite }
+            if (favoriteSongs.isEmpty()) {
+                Toast.makeText(this, "No favorite songs available", Toast.LENGTH_SHORT).show()
+            } else {
+                updateRecyclerView(favoriteSongs)
             }
         }
     }
@@ -79,10 +97,15 @@ class MainActivity : AppCompatActivity() {
         songs.clear()
         songs.addAll(getAllAudioFromDevice())
 
-        musicPlayer = MusicPlayer(this, songs) // Initialize MusicPlayer with the song list
+        musicPlayer = MusicPlayer(this, songs)
 
-        val songAdapter = SongAdapter(songs) { song ->
-            musicPlayer.playSong(song) // Play the selected song when clicked
+        // Update RecyclerView with all songs
+        updateRecyclerView(songs)
+    }
+
+    private fun updateRecyclerView(songList: List<Song>) {
+        val songAdapter = SongAdapter(songList) { song ->
+            musicPlayer.playSong(song)
         }
 
         binding.songsRecyclerView.layoutManager = LinearLayoutManager(this)
@@ -139,4 +162,5 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
+
 

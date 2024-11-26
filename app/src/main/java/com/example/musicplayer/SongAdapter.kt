@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 
 class SongAdapter(
@@ -28,11 +29,21 @@ class SongAdapter(
         holder.artistTextView.text = song.artist
         holder.durationTextView.text = song.duration
 
-        // Set click listener
         holder.itemView.setOnClickListener {
-            onSongClick(song) // Pass the clicked song to the callback
+            onSongClick(song)
+        }
+
+        holder.itemView.setOnLongClickListener {
+            song.isFavorite = !song.isFavorite // Toggle favorite status
+            Toast.makeText(
+                holder.itemView.context,
+                if (song.isFavorite) "Marked as favorite" else "Removed from favorites",
+                Toast.LENGTH_SHORT
+            ).show()
+            true
         }
     }
+
 
     override fun getItemCount(): Int {
         return songs.size
