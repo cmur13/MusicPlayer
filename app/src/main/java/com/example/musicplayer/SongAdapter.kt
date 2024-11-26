@@ -3,9 +3,12 @@ package com.example.musicplayer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import android.content.Context
+import android.content.SharedPreferences
 
 class SongAdapter(
     private val songs: List<Song>,
@@ -16,6 +19,7 @@ class SongAdapter(
         val titleTextView: TextView = itemView.findViewById(R.id.songTitle)
         val artistTextView: TextView = itemView.findViewById(R.id.songArtist)
         val durationTextView: TextView = itemView.findViewById(R.id.songDuration)
+        val favoriteIcon: ImageView = itemView.findViewById(R.id.favoriteIcon) // ImageView for favorite icon
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SongViewHolder {
@@ -29,24 +33,49 @@ class SongAdapter(
         holder.artistTextView.text = song.artist
         holder.durationTextView.text = song.duration
 
+        // Load the favorite state from SharedPreferences
+        val sharedPreferences: SharedPreferences = holder.itemView.context.getSharedPreferences("Favorites", Context.MODE_PRIVATE)
+        val isFavorite = sharedPreferences.getBoolean(song.title, false) // Default to false if not found
+        song.isFavorite = isFavorite
+
+        // Set the favorite icon based on the song's favorite status
+        if (song.isFavorite) {
+            holder.favoriteIcon.setImageResource(R.drawable.favourite_icon) // Filled star
+        } else {
+            holder.favoriteIcon.setImageResource(R.drawable.ic_favorite_border) // Empty star
+        }
+
         holder.itemView.setOnClickListener {
             onSongClick(song)
         }
 
-        holder.itemView.setOnLongClickListener {
+        holder.favoriteIcon.setOnClickListener {
             song.isFavorite = !song.isFavorite // Toggle favorite status
-            Toast.makeText(
-                holder.itemView.context,
-                if (song.isFavorite) "Marked as favorite" else "Removed from favorites",
-                Toast.LENGTH_SHORT
-            ).show()
-            true
+            // Save the updated favorite status
+            saveFavoriteState(holder.itemView.context, song.title, song.isFavorite)
+
+            // Update the icon and show toast
+            if (song.isFavorite) {
+                holder.favoriteIcon.setImageResource(R.drawable.favourite_icon) // Filled star
+                Toast.makeText(holder.itemView.context, "Marked as favorite", Toast.LENGTH_SHORT).show()
+            } else {
+                holder.favoriteIcon.setImageResource(R.drawable.ic_favorite_border) // Empty star
+                Toast.makeText(holder.itemView.context, "Removed from favorites", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
+
+    private fun saveFavoriteState(context: Context, songId: String, isFavorite: Boolean) {
+        val sharedPreferences: SharedPreferences = context.getSharedPreferences("Favorites", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putBoolean(songId, isFavorite)
+        editor.apply() // Apply changes to persist the state
+    }
 
     override fun getItemCount(): Int {
         return songs.size
     }
 }
+
 
