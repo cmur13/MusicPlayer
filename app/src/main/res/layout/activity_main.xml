@@ -12,6 +12,7 @@
         android:orientation="horizontal"
         android:gravity="center">
 
+
         <!-- Shuffle Button -->
         <Button
             android:id="@+id/shuffleE"
@@ -52,10 +53,85 @@
 
     </LinearLayout>
 
-    <!-- RecyclerView for Songs List -->
+    <!-- RecyclerView for Songs List  (Changed margin from 16 David)-->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/songsRecyclerView"
         android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- TODO make this only show up when playing song maybe(David) -->
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="16dp" />
+        android:orientation="vertical"
+        android:gravity="top|center">
+
+        <!-- "Now PLaying" Text -->
+        <TextView
+            android:id="@+id/currentSong"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Now Playing" />
+
+        <!-- Song name for progress -->
+        <TextView
+            android:id="@+id/songTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Song Name" />
+
+        <!-- Song Progress TODO make functional (David)-->
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:minWidth="300dp"
+            />
+
+        <!-- Linear Layout for horizontal buttons -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <!--Previous Button  TODO make functional (David)-->
+            <ImageView
+                android:id="@+id/prev"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/prev_icon"
+                android:contentDescription="@string/prev"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="8dp"
+                android:layout_marginStart="8dp" />
+
+            <!-- Start/Pause Button TODO make start change to pause on click (David) -->
+            <ImageView
+                android:id="@+id/start"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/play_icon"
+                android:contentDescription="@string/start"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="8dp"
+                android:layout_marginStart="8dp" />
+
+            <!-- Next Song Button TODO make functional (David)-->
+            <ImageView
+                android:id="@+id/next"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/next_icon"
+                android:contentDescription="@string/next"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="8dp"
+                android:layout_marginStart="8dp" />
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

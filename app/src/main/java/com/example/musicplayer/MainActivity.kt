@@ -5,11 +5,15 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.musicplayer.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -60,6 +64,21 @@ class MainActivity : AppCompatActivity() {
                 updateRecyclerView(favoriteSongs)
             }
         }
+        //Previous song imageview listener
+        binding.prev.setOnClickListener{
+            Toast.makeText(this, "test prev", Toast.LENGTH_SHORT).show()
+        }
+
+        // Start song imageview listener
+        binding.start.setOnClickListener{
+            Toast.makeText(this, "test start", Toast.LENGTH_SHORT).show()
+        }
+
+        //Next song imageview listener
+        binding.next.setOnClickListener{
+            Toast.makeText(this, "test next", Toast.LENGTH_SHORT).show()
+        }
+
     }
 
     private fun requestStoragePermission() {

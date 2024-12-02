@@ -8,7 +8,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
+import android.widget.PopupMenu
+import androidx.core.content.ContextCompat.startActivity
 
 class SongAdapter(
     private val songs: List<Song>,
@@ -20,6 +23,7 @@ class SongAdapter(
         val artistTextView: TextView = itemView.findViewById(R.id.songArtist)
         val durationTextView: TextView = itemView.findViewById(R.id.songDuration)
         val favoriteIcon: ImageView = itemView.findViewById(R.id.favoriteIcon) // ImageView for favorite icon
+        val moreIcon: ImageView = itemView.findViewById(R.id.moreIcon) //ImageView for more options (add/delete/etc.)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SongViewHolder {
@@ -62,6 +66,19 @@ class SongAdapter(
                 holder.favoriteIcon.setImageResource(R.drawable.ic_favorite_border) // Empty star
                 Toast.makeText(holder.itemView.context, "Removed from favorites", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        //Create a menu on click with test text
+        //TODO popupMenu listener lead to playlist
+        holder.moreIcon.setOnClickListener{
+            val popupMenu = PopupMenu(holder.itemView.context,holder.moreIcon)
+            popupMenu.menuInflater.inflate(R.menu.popup, popupMenu.menu)
+            popupMenu.setOnMenuItemClickListener{ menuItem ->
+                val intent = Intent(holder.itemView.context, PlaylistActivity::class.java)
+                //startActivity(intent)
+                true
+            }
+            popupMenu.show()
         }
     }
 

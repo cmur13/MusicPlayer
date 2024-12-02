@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
@@ -52,6 +51,16 @@
         android:focusable="true"
         android:padding="8dp"
         android:layout_marginStart="8dp" />
+
+    <!-- More Icon (Add to playlist, possible delete function)-->
+    <ImageView
+        android:id="@+id/moreIcon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/more_options"
+        android:contentDescription="@string/option_menu"
+        android:clickable="true"
+        android:padding="8dp" />
 
 
 
