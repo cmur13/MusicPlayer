@@ -111,7 +111,7 @@
 
             <!-- Start/Pause Button TODO make start change to pause on click (David) -->
             <ImageView
-                android:id="@+id/start"
+                android:id="@+id/pauseStart"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:src="@drawable/play_icon"

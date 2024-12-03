@@ -11,7 +11,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.widget.PopupMenu
-import androidx.core.content.ContextCompat.startActivity
 
 class SongAdapter(
     private val songs: List<Song>,
@@ -69,13 +68,15 @@ class SongAdapter(
         }
 
         //Create a menu on click with test text
-        //TODO popupMenu listener lead to playlist
+        //TODO popupMenu listener lead to playlist (Done)
         holder.moreIcon.setOnClickListener{
             val popupMenu = PopupMenu(holder.itemView.context,holder.moreIcon)
             popupMenu.menuInflater.inflate(R.menu.popup, popupMenu.menu)
             popupMenu.setOnMenuItemClickListener{ menuItem ->
+                val selected = songs[position]
                 val intent = Intent(holder.itemView.context, PlaylistActivity::class.java)
-                //startActivity(intent)
+                intent.putExtra("test", selected)
+                holder.itemView.context.startActivity(intent)
                 true
             }
             popupMenu.show()

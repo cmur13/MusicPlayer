@@ -37,8 +37,32 @@ class MusicPlayer(private val context: Context, private val songs: List<Song>) {
                 Toast.makeText(context, "End of shuffled playlist", Toast.LENGTH_SHORT).show()
             }
         } else {
-            // Handle regular playlist playback here (optional)
+            playSong(songs[currentSongIndex + 1])
             Toast.makeText(context, "Shuffle mode is off or no songs to play", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    // Play the previous song
+    fun playPrevious() {
+        if (isShuffleEnabled && shuffledSongs.isNotEmpty()) {
+            // Move to the previous song in the shuffled list
+            if (currentSongIndex > 0) {
+                currentSongIndex--
+                playSong(shuffledSongs[currentSongIndex])
+            } else {
+                // Replays the current song if there's no previous song in shuffle mode
+                playSong(shuffledSongs[currentSongIndex])
+            }
+        } else {
+            // Handle regular playlist playback
+            if (currentSongIndex > 0) {
+                currentSongIndex--
+                playSong(songs[currentSongIndex])
+            } else {
+                // Replays the current song if there's no previous song in regular mode
+                playSong(songs[currentSongIndex])
+                Toast.makeText(context, "No Previous Song", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -52,6 +76,18 @@ class MusicPlayer(private val context: Context, private val songs: List<Song>) {
             Toast.makeText(context, "Shuffle mode activated", Toast.LENGTH_SHORT).show()
         } else {
             Toast.makeText(context, "No songs to shuffle", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun pauseStart() {
+        if(songs.isNotEmpty()) {
+            if(mediaPlayer?.isPlaying == true) {
+                mediaPlayer?.pause()
+                Toast.makeText(context, "pausing song", Toast.LENGTH_SHORT).show()
+            } else {
+                mediaPlayer?.start()
+                Toast.makeText(context, "starting song", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
