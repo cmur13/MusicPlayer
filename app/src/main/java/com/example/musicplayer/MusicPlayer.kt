@@ -38,7 +38,6 @@ class MusicPlayer(private val context: Context, private val songs: List<Song>) {
             }
         } else {
             playSong(songs[currentSongIndex + 1])
-            Toast.makeText(context, "Shuffle mode is off or no songs to play", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -49,15 +48,18 @@ class MusicPlayer(private val context: Context, private val songs: List<Song>) {
             if (currentSongIndex > 0) {
                 currentSongIndex--
                 playSong(shuffledSongs[currentSongIndex])
+                Toast.makeText(context, "Playing Last Song", Toast.LENGTH_SHORT).show()
             } else {
                 // Replays the current song if there's no previous song in shuffle mode
                 playSong(shuffledSongs[currentSongIndex])
+                Toast.makeText(context, "No Previous Song", Toast.LENGTH_SHORT).show()
             }
         } else {
             // Handle regular playlist playback
             if (currentSongIndex > 0) {
                 currentSongIndex--
                 playSong(songs[currentSongIndex])
+                Toast.makeText(context, "Playing Last Song", Toast.LENGTH_SHORT).show()
             } else {
                 // Replays the current song if there's no previous song in regular mode
                 playSong(songs[currentSongIndex])

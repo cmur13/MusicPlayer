@@ -16,6 +16,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var musicPlayer: MusicPlayer // MusicPlayer instance
     private val songs = mutableListOf<Song>()
+    private var favoriteView = false
 
     companion object {
         private const val REQUEST_CODE = 1
@@ -54,10 +55,18 @@ class MainActivity : AppCompatActivity() {
         // Favorites button listener
         binding.favoriteE.setOnClickListener {
             val favoriteSongs = songs.filter { it.isFavorite }
-            if (favoriteSongs.isEmpty()) {
-                Toast.makeText(this, "No favorite songs available", Toast.LENGTH_SHORT).show()
+            if (favoriteView) {
+                favoriteView = false
+                Toast.makeText(this, "Returning", Toast.LENGTH_SHORT).show()
+                updateRecyclerView(songs)
             } else {
-                updateRecyclerView(favoriteSongs)
+                if (favoriteSongs.isEmpty()) {
+                    Toast.makeText(this, "No favorite songs available", Toast.LENGTH_SHORT).show()
+                } else {
+                    favoriteView = true
+                    Toast.makeText(this, "Showing Favorites", Toast.LENGTH_SHORT).show()
+                    updateRecyclerView(favoriteSongs)
+                }
             }
         }
         //Previous song imageview listener
@@ -65,7 +74,6 @@ class MainActivity : AppCompatActivity() {
             if (::musicPlayer.isInitialized) {
                 musicPlayer.playPrevious()
             }
-            Toast.makeText(this, "test prev", Toast.LENGTH_SHORT).show()
         }
 
         // Pause Song/ Resume Song listener
@@ -78,9 +86,8 @@ class MainActivity : AppCompatActivity() {
         //Next song imageview listener
         binding.next.setOnClickListener{
             if(::musicPlayer.isInitialized) {
-                musicPlayer.playNext() //TODO update to handle not shuffled
+                musicPlayer.playNext()
             }
-            Toast.makeText(this, "test next", Toast.LENGTH_SHORT).show()
         }
 
     }

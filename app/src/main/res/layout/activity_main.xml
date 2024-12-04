@@ -80,7 +80,7 @@
             android:id="@+id/songTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Song Name" />
+            android:text="No Song Selected"/>
 
         <!-- Song Progress TODO make functional (David)-->
         <ProgressBar
@@ -97,7 +97,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
 
-            <!--Previous Button  TODO make functional (David)-->
+            <!--Previous Button -->
             <ImageView
                 android:id="@+id/prev"
                 android:layout_width="48dp"
@@ -109,7 +109,7 @@
                 android:padding="8dp"
                 android:layout_marginStart="8dp" />
 
-            <!-- Start/Pause Button TODO make start change to pause on click (David) -->
+            <!-- Start/Pause Button -->
             <ImageView
                 android:id="@+id/pauseStart"
                 android:layout_width="48dp"
@@ -121,7 +121,7 @@
                 android:padding="8dp"
                 android:layout_marginStart="8dp" />
 
-            <!-- Next Song Button TODO make functional (David)-->
+            <!-- Next Song Button (TODO link to current song)-->
             <ImageView
                 android:id="@+id/next"
                 android:layout_width="48dp"

@@ -15,17 +15,6 @@ class PlaylistActivity : AppCompatActivity() {
         binding = ActivityPlaylistBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        /*Ignore doesnt work yet
-        val selectedSong: Song? = intent.getParcelableExtra("test")
-
-        selectedSong?.let{
-            val name = "Favorites"
-            val playlist = playlists.find{ it.name == name }
-            playlist?.songs?.add(it) ?: playlists.add(Playlist(name, mutableListOf(it)))
-        }
-
-         */
-
         // Temporary: Load some dummy playlists
         playlists.add(Playlist("Favorites", mutableListOf()))
         playlists.add(Playlist("Chill", mutableListOf()))

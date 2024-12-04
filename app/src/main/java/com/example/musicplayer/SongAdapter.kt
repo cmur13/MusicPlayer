@@ -67,15 +67,13 @@ class SongAdapter(
             }
         }
 
-        //Create a menu on click with test text
-        //TODO popupMenu listener lead to playlist (Done)
         holder.moreIcon.setOnClickListener{
             val popupMenu = PopupMenu(holder.itemView.context,holder.moreIcon)
             popupMenu.menuInflater.inflate(R.menu.popup, popupMenu.menu)
             popupMenu.setOnMenuItemClickListener{ menuItem ->
                 val selected = songs[position]
                 val intent = Intent(holder.itemView.context, PlaylistActivity::class.java)
-                intent.putExtra("test", selected)
+                //intent.putExtra("test", selected)
                 holder.itemView.context.startActivity(intent)
                 true
             }
