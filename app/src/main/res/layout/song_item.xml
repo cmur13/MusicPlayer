@@ -54,5 +54,15 @@
         android:layout_marginStart="8dp" />
 
 
+    <!-- More Icon (Add to playlist, possible delete function)-->
+    <ImageView
+        android:id="@+id/moreIcon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/playlist_icon"
+        android:clickable="true"
+        android:padding="8dp" />
+
+
 
 </LinearLayout>
