@@ -7,5 +7,7 @@
     <string name="next">Next Song</string>
     <string name="prev">Previous Song</string>
     <string name="start">Start/Pause</string>
+    <string name="Shuffle_btn">Shuffle</string>
+    <string name="Playlist_btn">Playlist</string>
 
 </resources>
