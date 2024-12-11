@@ -57,7 +57,7 @@
         android:id="@+id/moreIcon"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:src="@drawable/more_options"
+        android:src="@drawable/playlist_icon"
         android:contentDescription="@string/option_menu"
         android:clickable="true"
         android:padding="8dp" />
