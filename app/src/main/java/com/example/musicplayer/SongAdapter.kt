@@ -12,6 +12,8 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.widget.PopupMenu
 
+
+//This is song_item.xml
 class SongAdapter(
     private val songs: List<Song>,
     private val onSongClick: (Song) -> Unit // Callback function for click events

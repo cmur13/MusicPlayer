@@ -66,6 +66,7 @@ class MainActivity : AppCompatActivity() {
                     favoriteView = true
                     Toast.makeText(this, "Showing Favorites", Toast.LENGTH_SHORT).show()
                     updateRecyclerView(favoriteSongs)
+
                 }
             }
         }
