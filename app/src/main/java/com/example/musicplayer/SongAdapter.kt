@@ -11,9 +11,12 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.widget.PopupMenu
+import androidx.core.content.ContextCompat
+import com.example.musicplayer.databinding.SongItemBinding
 
 class SongAdapter(
-    private val songs: List<Song>,
+    private val context: Context,
+    private val songs: ArrayList<Song>,
     private val onSongClick: (Song) -> Unit // Callback function for click events
 ) : RecyclerView.Adapter<SongAdapter.SongViewHolder>() {
 
@@ -23,7 +26,9 @@ class SongAdapter(
         val durationTextView: TextView = itemView.findViewById(R.id.songDuration)
         val favoriteIcon: ImageView = itemView.findViewById(R.id.favoriteIcon) // ImageView for favorite icon
         val moreIcon: ImageView = itemView.findViewById(R.id.moreIcon) //ImageView for more options (add/delete/etc.)
+        val root: View = itemView
     }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SongViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.song_item, parent, false)
@@ -34,7 +39,10 @@ class SongAdapter(
         val song = songs[position]
         holder.titleTextView.text = song.title
         holder.artistTextView.text = song.artist
-        holder.durationTextView.text = song.duration
+        // Convert duration (Long) to a human-readable format
+        val minutes = song.duration / 1000 / 60
+        val seconds = song.duration / 1000 % 60
+        holder.durationTextView.text = String.format("%d:%02d", minutes, seconds)
 
         // Load the favorite state from SharedPreferences
         val sharedPreferences: SharedPreferences = holder.itemView.context.getSharedPreferences("Favorites", Context.MODE_PRIVATE)
@@ -79,6 +87,13 @@ class SongAdapter(
             }
             popupMenu.show()
         }
+        // Handle click events to open PlayerActivity
+        holder.root.setOnClickListener {
+            val intent = Intent(context, PlayerActivity::class.java)
+            intent.putExtra("index", position)
+            intent.putExtra("class", "MusicAdapter")
+            ContextCompat.startActivity(context, intent, null)
+        }
     }
 
 
@@ -91,6 +106,11 @@ class SongAdapter(
 
     override fun getItemCount(): Int {
         return songs.size
+    }
+    fun updateMusicList(searchList: ArrayList<Song>) {
+        songs.clear()
+        songs.addAll(searchList)
+        notifyDataSetChanged()
     }
 }
 

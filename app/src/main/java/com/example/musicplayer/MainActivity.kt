@@ -27,12 +27,12 @@ class MainActivity : AppCompatActivity() {
 
     // new code
     private lateinit var toggle: ActionBarDrawerToggle
-    private lateinit var musicAdapter: MusicAdapter
+    private lateinit var musicAdapter: SongAdapter
 
     companion object {
         private const val REQUEST_CODE = 1
-        lateinit var MusicListMA: ArrayList<Music>
-        lateinit var musicListSearch: ArrayList<Music>
+        lateinit var MusicListMA: ArrayList<Song>
+        lateinit var musicListSearch: ArrayList<Song>
         var search: Boolean = false
         var themeIndex: Int = 0
         var sortOrder: Int = 0
@@ -96,7 +96,9 @@ class MainActivity : AppCompatActivity() {
         MusicListMA = getAllAudio()
 
         // Adapter
-        musicAdapter = MusicAdapter(this@MainActivity, MusicListMA)
+        musicAdapter = SongAdapter(this@MainActivity, MusicListMA){song->
+            musicPlayer.playSong(song)
+        }
         binding.MusicRv.adapter = musicAdapter
 
         binding.shuffleE.setOnClickListener {
@@ -136,21 +138,24 @@ class MainActivity : AppCompatActivity() {
     }
     private fun loadSongsFromDevice() {
         songs.clear()
-        songs.addAll(getAllAudioFromDevice())
+        songs.addAll(getAllAudio())
 
         musicPlayer = MusicPlayer(this, songs)
 
         // Update RecyclerView with all songs
         updateRecyclerView(songs)
     }
+
     private fun updateRecyclerView(songList: List<Song>) {
-        val songAdapter = SongAdapter(songList) { song ->
+        val songAdapter = SongAdapter(this, ArrayList(songList)) { song -> // Use 'this' for Context and convert List<Song> to ArrayList
             musicPlayer.playSong(song)
         }
 
         binding.MusicRv.layoutManager = LinearLayoutManager(this)
         binding.MusicRv.adapter = songAdapter
     }
+
+    /*
     private fun getAllAudioFromDevice(): List<Song> {
         val songList = mutableListOf<Song>()
 
@@ -203,6 +208,8 @@ class MainActivity : AppCompatActivity() {
         return songList
     }
 
+     */
+
     private fun formatDuration(duration: Long): String {
         val minutes = (duration / 1000) / 60
         val seconds = (duration / 1000) % 60
@@ -228,8 +235,8 @@ class MainActivity : AppCompatActivity() {
 
     // Function to get all audio files from storage
     @SuppressLint("Range")
-    private fun getAllAudio(): ArrayList<Music> {
-        val tempList = ArrayList<Music>()
+    private fun getAllAudio(): ArrayList<Song> {
+        val tempList = ArrayList<Song>()
         val selection = MediaStore.Audio.Media.IS_MUSIC + " != 0"
         val projection = arrayOf(
             MediaStore.Audio.Media._ID,
@@ -257,9 +264,9 @@ class MainActivity : AppCompatActivity() {
                     val albumIdC = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID)).toString()
                     val uri = Uri.parse("content://media/external/audio/albumart")
                     val artUriC = Uri.withAppendedPath(uri, albumIdC).toString()
-                    val music = Music(
+                    val music = Song(
                         id = idC,
-                        tittle = titleC,
+                        title = titleC,
                         album = albumC,
                         artist = artistC,
                         path = pathC,
@@ -287,7 +294,9 @@ class MainActivity : AppCompatActivity() {
                 MusicListMA = getAllAudio()
 
                 // Adapter
-                musicAdapter = MusicAdapter(this@MainActivity, MusicListMA)
+                musicAdapter = SongAdapter(this@MainActivity, MusicListMA){song->
+                    musicPlayer.playSong(song)
+                }
                 binding.MusicRv.adapter = musicAdapter
             } else {
                 ActivityCompat.requestPermissions(

@@ -16,7 +16,7 @@ import com.example.musicplayer.databinding.ActivityPlayerBinding
 class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCompletionListener {
 
     companion object {
-        lateinit var musicListPA: ArrayList<Music>
+        lateinit var musicListPA: ArrayList<Song>
         var songPosition: Int = 0
         var isPlaying: Boolean = false
         var musicService: MusicService? = null
@@ -69,7 +69,7 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
             .apply(RequestOptions().placeholder(R.mipmap.ic_launcher_round).centerCrop())
             .into(binding.songImagePA)
 
-        binding.songNamePA.text = musicListPA[songPosition].tittle
+       // binding.songNamePA.text = musicListPA[songPosition].tittle
     }
 
     private fun createMediaPlayer() {

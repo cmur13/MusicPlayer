@@ -39,13 +39,13 @@ class NowPlaying : Fragment() {
             setSongPosition(Increment = true)
             PlayerActivity.musicService!!.createMediaPlayer()
 
-            PlayerActivity.binding.songNamePA.text = PlayerActivity.musicListPA[PlayerActivity.songPosition].tittle
+            PlayerActivity.binding.songNamePA.text = PlayerActivity.musicListPA[PlayerActivity.songPosition].title
             Glide.with(this)
                 .load(PlayerActivity.musicListPA[PlayerActivity.songPosition].artUri)
                 .apply(RequestOptions().placeholder(R.mipmap.ic_launcher_round).centerCrop())
                 .into(binding.songImgNP)
 
-            binding.songNameNP.text = PlayerActivity.musicListPA[PlayerActivity.songPosition].tittle
+            binding.songNameNP.text = PlayerActivity.musicListPA[PlayerActivity.songPosition].title
             PlayerActivity.musicService!!.showNotification(R.drawable.pause_icon)
             playMusic()
 
@@ -75,7 +75,7 @@ class NowPlaying : Fragment() {
                 .apply(RequestOptions().placeholder(R.mipmap.ic_launcher_round).centerCrop())
                 .into(binding.songImgNP)
 
-            binding.songNameNP.text = PlayerActivity.musicListPA[PlayerActivity.songPosition].tittle
+            binding.songNameNP.text = PlayerActivity.musicListPA[PlayerActivity.songPosition].title
 
             if(PlayerActivity.isPlaying) binding.playPauseBtnNP.setIconResource(R.drawable.pause_icon)
             else binding.playPauseBtnNP.setIconResource(R.drawable.play_icon)
