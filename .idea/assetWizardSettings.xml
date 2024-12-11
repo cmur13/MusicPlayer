@@ -91,6 +91,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
+                                                <entry key="imagePath" value="C:\Users\cmur1\Downloads\music_jpeg_4x.jpg" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -118,12 +119,6 @@
                                           </PersistentState>
                                         </value>
                                       </entry>
-                                    </map>
-                                  </option>
-                                  <option name="values">
-                                    <map>
-                                      <entry key="foregroundAssetType" value="CLIP_ART" />
-                                      <entry key="foregroundLayerName" value="close_icon" />
                                     </map>
                                   </option>
                                 </PersistentState>
