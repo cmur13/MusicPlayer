@@ -2,9 +2,11 @@ package com.example.musicplayer
 
 import android.content.Context
 import android.media.MediaPlayer
+import android.widget.ImageButton
 import android.widget.Toast
+import com.example.musicplayer.databinding.ActivityMainBinding
 
-class MusicPlayer(private val context: Context, private val songs: List<Song>) {
+class MusicPlayer(private val context: Context, private val songs: List<Song>, private val binding: ActivityMainBinding) {
     private var mediaPlayer: MediaPlayer? = null
     private var shuffledSongs = mutableListOf<Song>()
     private var isShuffleEnabled = false
@@ -55,6 +57,23 @@ class MusicPlayer(private val context: Context, private val songs: List<Song>) {
         }
     }
 
+<<<<<<< Updated upstream
+=======
+    fun pauseStart() {
+        if (songs.isNotEmpty()) {
+            if (mediaPlayer?.isPlaying == true) {
+                mediaPlayer?.pause()
+                binding.pauseStart.setImageResource(R.drawable.play_icon)  // Change to play icon
+            } else {
+                mediaPlayer?.start()
+                binding.pauseStart.setImageResource(R.drawable.pause_icon)  // Change to pause icon
+            }
+        }
+    }
+
+
+
+>>>>>>> Stashed changes
     // Stop playback and release MediaPlayer resources
     fun stop() {
         mediaPlayer?.release()

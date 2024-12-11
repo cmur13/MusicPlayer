@@ -57,5 +57,77 @@
         android:id="@+id/songsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+<<<<<<< Updated upstream
         android:layout_marginTop="16dp" />
+=======
+        android:orientation="vertical"
+        android:gravity="top|center">
+
+        <!-- "Now PLaying" Text -->
+        <TextView
+            android:id="@+id/currentSong"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Now Playing" />
+
+        <!-- Song name for progress -->
+        <TextView
+            android:id="@+id/songTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No Song Selected"/>
+
+        <!-- Song Progress TODO make functional (David)-->
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:minWidth="300dp"
+            />
+
+        <!-- Linear Layout for horizontal buttons -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <!--Previous Button -->
+            <ImageView
+                android:id="@+id/prev"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/prev_icon"
+                android:contentDescription="@string/prev"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="8dp"
+                android:layout_marginStart="8dp" />
+
+            <!-- Start/Pause Button -->
+            <ImageButton
+                android:id="@+id/pauseStart"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/play_icon"
+                android:contentDescription="@string/start"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="8dp"
+                android:layout_marginStart="8dp" />
+
+            <!-- Next Song Button (TODO link to current song)-->
+            <ImageView
+                android:id="@+id/next"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/next_icon"
+                android:contentDescription="@string/next"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="8dp"
+                android:layout_marginStart="8dp" />
+        </LinearLayout>
+    </LinearLayout>
+>>>>>>> Stashed changes
 </LinearLayout>
