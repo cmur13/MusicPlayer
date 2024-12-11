@@ -69,7 +69,7 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
             .apply(RequestOptions().placeholder(R.mipmap.ic_launcher_round).centerCrop())
             .into(binding.songImagePA)
 
-       // binding.songNamePA.text = musicListPA[songPosition].tittle
+       binding.songNamePA.text = musicListPA[songPosition].title
     }
 
     private fun createMediaPlayer() {
