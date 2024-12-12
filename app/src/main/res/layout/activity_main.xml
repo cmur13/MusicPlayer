@@ -11,11 +11,11 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -25,45 +25,42 @@
                 <!-- Shuffle Button -->
                 <Button
                     android:id="@+id/shuffleE"
+                    style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:contentDescription="@string/Shuffle_btn"
-                    style="@style/Widget.AppCompat.Button.Borderless"
                     android:drawableTop="@drawable/shuffle_icon"
                     android:text="@string/Shuffle_btn"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
                     android:textAllCaps="false"
-                    />
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
                 <!-- Favorite Button -->
                 <Button
                     android:id="@+id/favoriteE"
+                    style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:contentDescription="@string/favorite"
-                    style="@style/Widget.AppCompat.Button.Borderless"
                     android:drawableTop="@drawable/favourite_icon"
                     android:text="@string/favorite"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
                     android:textAllCaps="false"
-                    />
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
                 <!-- Playlist Button -->
                 <Button
                     android:id="@+id/playlistE"
+                    style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:contentDescription="@string/Playlist_btn"
-                    style="@style/Widget.AppCompat.Button.Borderless"
                     android:drawableTop="@drawable/playlist_icon"
                     android:text="@string/Playlist_btn"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
                     android:textAllCaps="false"
-                    />
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -72,21 +69,20 @@
                 android:id="@+id/songsRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scrollbars="vertical"
                 android:scrollbarThumbVertical="@drawable/scroll"
-                />
+                android:scrollbars="vertical" />
 
         </LinearLayout>
+
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/NowPlayingBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:name="com.example.musicplayer.NowPlaying"
+            android:layout_width="409dp"
+            android:layout_height="63dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:name="com.example.musicplayer.NowPlaying"
-            tools:layout = "@layout/fragment_now_playing"
-            />
+            tools:layout="@layout/fragment_now_playing" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.drawerlayout.widget.DrawerLayout>
 

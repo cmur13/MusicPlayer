@@ -5,8 +5,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".NowPlaying"
-    android:background="#D3D3D3"
-    >
+    android:background="#A9A9A9">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/songImageBar"
@@ -54,7 +53,4 @@
         android:marqueeRepeatLimit="marquee_forever"
         android:singleLine="true"
         />
-
-
-
 </RelativeLayout>
