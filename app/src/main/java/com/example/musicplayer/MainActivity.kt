@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var musicPlayer: MusicPlayer // MusicPlayer instance
-    private val songs = mutableListOf<Song>()
+    //private val songs = mutableListOf<Song>()
     private var favoriteView = false
 
     // new code
@@ -32,9 +32,6 @@ class MainActivity : AppCompatActivity() {
     companion object {
         private const val REQUEST_CODE = 1
         lateinit var MusicListMA: ArrayList<Song>
-        lateinit var musicListSearch: ArrayList<Song>
-        var search: Boolean = false
-        var themeIndex: Int = 0
         var sortOrder: Int = 0
         val sortingList = arrayOf(
             MediaStore.Audio.Media.DATE_ADDED + " DESC",
@@ -109,44 +106,6 @@ class MainActivity : AppCompatActivity() {
         toggle.syncState()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
-
-/*
-    private fun requestStoragePermission() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(
-                this,
-                Manifest.permission.READ_EXTERNAL_STORAGE
-            )
-        ) {
-            Toast.makeText(this, "Storage permission is required to load songs", Toast.LENGTH_SHORT)
-                .show()
-        }
-        ActivityCompat.requestPermissions(
-            this,
-            arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-            REQUEST_CODE
-        )
-    }
-
-    private fun loadSongsFromDevice() {
-        MusicListMA.clear()
-        MusicListMA.addAll(getAllAudio())
-
-        musicPlayer = MusicPlayer(this, songs)
-
-        // Update RecyclerView with all songs
-        updateRecyclerView(songs)
-    }
-
-    private fun updateRecyclerView(songList: List<Song>) {
-        val songAdapter = SongAdapter(this, ArrayList(songList)) { song -> // Use 'this' for Context and convert List<Song> to ArrayList
-            musicPlayer.playSong(song)
-        }
-
-        binding.songsRecyclerView.layoutManager = LinearLayoutManager(this)
-        binding.songsRecyclerView.adapter = songAdapter
-    }
-
- */
 
 
     // new code
@@ -269,7 +228,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
-
 
 
 
