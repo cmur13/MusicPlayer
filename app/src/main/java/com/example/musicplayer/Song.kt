@@ -32,14 +32,14 @@ fun getImgArt(path: String): ByteArray? {
 fun setSongPosition(Increment: Boolean) {
     if (!PlayerActivity.repeat) {
         if (Increment) {
-            if (PlayerActivity.musicListPA.size - 1 == PlayerActivity.songPosition) {
+            if (PlayerActivity.musicList.size - 1 == PlayerActivity.songPosition) {
                 PlayerActivity.songPosition = 0
             } else {
                 ++PlayerActivity.songPosition
             }
         } else {
             if (PlayerActivity.songPosition == 0) {
-                PlayerActivity.songPosition = PlayerActivity.musicListPA.size - 1
+                PlayerActivity.songPosition = PlayerActivity.musicList.size - 1
             } else {
                 --PlayerActivity.songPosition
             }

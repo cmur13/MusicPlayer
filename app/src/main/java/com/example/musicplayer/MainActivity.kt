@@ -87,8 +87,8 @@ class MainActivity : AppCompatActivity() {
 
         requestRuntimePermission()
 
-        binding.MusicRv.setHasFixedSize(true)
-        binding.MusicRv.layoutManager = LinearLayoutManager(this@MainActivity)
+        binding.songsRecyclerView.setHasFixedSize(true)
+        binding.songsRecyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
 
         val sortEditor = getSharedPreferences("SORTING", MODE_PRIVATE)
         sortOrder = sortEditor.getInt("sortOrder", 0)
@@ -99,7 +99,7 @@ class MainActivity : AppCompatActivity() {
         musicAdapter = SongAdapter(this@MainActivity, MusicListMA){song->
             musicPlayer.playSong(song)
         }
-        binding.MusicRv.adapter = musicAdapter
+        binding.songsRecyclerView.adapter = musicAdapter
 
         binding.shuffleE.setOnClickListener {
             if (MusicListMA.isNotEmpty()) {
@@ -151,64 +151,10 @@ class MainActivity : AppCompatActivity() {
             musicPlayer.playSong(song)
         }
 
-        binding.MusicRv.layoutManager = LinearLayoutManager(this)
-        binding.MusicRv.adapter = songAdapter
+        binding.songsRecyclerView.layoutManager = LinearLayoutManager(this)
+        binding.songsRecyclerView.adapter = songAdapter
     }
 
-    /*
-    private fun getAllAudioFromDevice(): List<Song> {
-        val songList = mutableListOf<Song>()
-
-        // Define the projection to fetch song details
-        val projection = arrayOf(
-            MediaStore.Audio.Media.TITLE,
-            MediaStore.Audio.Media.ARTIST,
-            MediaStore.Audio.Media.DURATION,
-            MediaStore.Audio.Media.DATA
-        )
-
-        // Define selection to filter MP3 files specifically in the Download directory
-        val selection = "${MediaStore.Audio.Media.DATA} LIKE ?"
-        val selectionArgs = arrayOf("%/Download/%") // Focus on files in the Download directory
-
-        // Sort the results alphabetically by title
-        val sortOrder = "${MediaStore.Audio.Media.TITLE} ASC"
-
-        val cursor = contentResolver.query(
-            MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-            projection,
-            selection,
-            selectionArgs,
-            sortOrder
-        )
-
-        if (cursor != null) {
-            while (cursor.moveToNext()) {
-                try {
-                    val title = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.TITLE))
-                    val artist = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ARTIST))
-                    val duration = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DURATION))
-                    val path = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA))
-
-                    // Only add MP3 files (double-check extension)
-                    if (path.endsWith(".mp3", ignoreCase = true)) {
-                        val durationFormatted = formatDuration(duration)
-                        songList.add(Song(title, artist, durationFormatted, path))
-                    }
-                } catch (e: Exception) {
-                    e.printStackTrace() // Log any issues for debugging
-                }
-            }
-            cursor.close()
-        } else {
-            // Log if the cursor is null (no results from query)
-            println("Cursor is null! No songs found.")
-        }
-
-        return songList
-    }
-
-     */
 
     private fun formatDuration(duration: Long): String {
         val minutes = (duration / 1000) / 60
@@ -297,7 +243,7 @@ class MainActivity : AppCompatActivity() {
                 musicAdapter = SongAdapter(this@MainActivity, MusicListMA){song->
                     musicPlayer.playSong(song)
                 }
-                binding.MusicRv.adapter = musicAdapter
+                binding.songsRecyclerView.adapter = musicAdapter
             } else {
                 ActivityCompat.requestPermissions(
                     this,

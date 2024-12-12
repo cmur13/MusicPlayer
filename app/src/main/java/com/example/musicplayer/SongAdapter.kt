@@ -12,7 +12,6 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.widget.PopupMenu
 import androidx.core.content.ContextCompat
-import com.example.musicplayer.databinding.SongItemBinding
 
 class SongAdapter(
     private val context: Context,

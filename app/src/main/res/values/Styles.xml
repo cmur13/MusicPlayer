@@ -3,4 +3,13 @@
     <style name="curved">
         <item name="cornerSize">15%</item>
     </style>
+
+    <style name="SquareShape">
+        <item name="cornerRadius">0dp</item>
+    </style>
+
+    <style name="Custom">
+        <item name="cornerSize">15%</item>
+    </style>
+
 </resources>

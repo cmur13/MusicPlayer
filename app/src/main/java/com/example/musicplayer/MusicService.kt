@@ -5,7 +5,6 @@ import android.app.Service
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.*
-import androidx.core.app.NotificationCompat
 import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
@@ -52,15 +51,15 @@ class MusicService : Service() {
         try {
             if (PlayerActivity.musicService?.mediaPlayer == null) PlayerActivity.musicService?.mediaPlayer = MediaPlayer()
             PlayerActivity.musicService?.mediaPlayer?.reset()
-            PlayerActivity.musicService?.mediaPlayer?.setDataSource(PlayerActivity.musicListPA[PlayerActivity.songPosition].path)
+            PlayerActivity.musicService?.mediaPlayer?.setDataSource(PlayerActivity.musicList[PlayerActivity.songPosition].path)
             PlayerActivity.musicService?.mediaPlayer?.prepare()
-            PlayerActivity.binding.PlayPauseBtnPA.setIconResource(R.drawable.pause_icon)
+            PlayerActivity.binding.PlayPauseButton.setIconResource(R.drawable.pause_icon)
             PlayerActivity.musicService?.showNotification(R.drawable.pause_icon)
-            PlayerActivity.binding.tvseekbarStart.text = formatDuration(mediaPlayer!!.currentPosition.toLong())
-            PlayerActivity.binding.tvseekbarEnd.text = formatDuration(mediaPlayer!!.duration.toLong())
-            PlayerActivity.binding.seekBarPA.progress = 0
-            PlayerActivity.binding.seekBarPA.max = mediaPlayer!!.duration
-            PlayerActivity.nowPlayingId = PlayerActivity.musicListPA[PlayerActivity.songPosition].id
+            PlayerActivity.binding.timeStart.text = formatDuration(mediaPlayer!!.currentPosition.toLong())
+            PlayerActivity.binding.timeEnd.text = formatDuration(mediaPlayer!!.duration.toLong())
+            PlayerActivity.binding.timeBar.progress = 0
+            PlayerActivity.binding.timeBar.max = mediaPlayer!!.duration
+            PlayerActivity.nowPlayingId = PlayerActivity.musicList[PlayerActivity.songPosition].id
         } catch (e: Exception) {
             return
         }
@@ -68,8 +67,8 @@ class MusicService : Service() {
 
     fun seekBarSetup() {
         runnable = Runnable {
-            PlayerActivity.binding.tvseekbarStart.text = formatDuration(mediaPlayer!!.currentPosition.toLong())
-            PlayerActivity.binding.seekBarPA.progress = mediaPlayer!!.currentPosition
+            PlayerActivity.binding.timeStart.text = formatDuration(mediaPlayer!!.currentPosition.toLong())
+            PlayerActivity.binding.timeBar.progress = mediaPlayer!!.currentPosition
             Handler(Looper.getMainLooper()).postDelayed(runnable, 200)
         }
         Handler(Looper.getMainLooper()).postDelayed(runnable, 0)

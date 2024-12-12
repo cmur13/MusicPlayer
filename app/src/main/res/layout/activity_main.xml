@@ -69,19 +69,16 @@
 
             <!-- RecyclerView for Songs List  (Changed margin from 16 David)-->
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/MusicRv"
+                android:id="@+id/songsRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scrollbars="vertical"
                 android:scrollbarThumbVertical="@drawable/scroll"
                 />
 
-
-
-
         </LinearLayout>
         <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/NowPlayingMA"
+            android:id="@+id/NowPlayingBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -16,7 +16,7 @@ import com.example.musicplayer.databinding.ActivityPlayerBinding
 class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCompletionListener {
 
     companion object {
-        lateinit var musicListPA: ArrayList<Song>
+        lateinit var musicList: ArrayList<Song>
         var songPosition: Int = 0
         var isPlaying: Boolean = false
         var musicService: MusicService? = null
@@ -37,7 +37,7 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
 
         initializeLayout()
 
-        binding.PlayPauseBtnPA.setOnClickListener {
+        binding.PlayPauseButton.setOnClickListener {
             if (isPlaying) {
                 pauseMusic()
             } else {
@@ -45,15 +45,15 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
             }
         }
 
-        binding.nextbtnPA.setOnClickListener {
-            PrevNextSong(Increment = true)
+        binding.nextButton.setOnClickListener {
+            prevNextSong(Increment = true)
         }
-        binding.previousbtnPA.setOnClickListener {
-            PrevNextSong(Increment = false)
+        binding.previousPlayer.setOnClickListener {
+            prevNextSong(Increment = false)
         }
-        binding.backBtnPA.setOnClickListener { finish() }
+        binding.backButton.setOnClickListener { finish() }
 
-        binding.seekBarPA.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+        binding.timeBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 if (fromUser) musicService!!.mediaPlayer!!.seekTo(progress)
             }
@@ -65,29 +65,29 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
 
     private fun setLayout() {
         Glide.with(this)
-            .load(musicListPA[songPosition].artUri)
+            .load(musicList[songPosition].artUri)
             .apply(RequestOptions().placeholder(R.mipmap.ic_launcher_round).centerCrop())
-            .into(binding.songImagePA)
+            .into(binding.songImageDisplay)
 
-       binding.songNamePA.text = musicListPA[songPosition].title
+        binding.songName.text = musicList[songPosition].title
     }
 
     private fun createMediaPlayer() {
         try {
             if (musicService!!.mediaPlayer == null) musicService!!.mediaPlayer = MediaPlayer()
             musicService!!.mediaPlayer!!.reset()
-            musicService!!.mediaPlayer!!.setDataSource(musicListPA[songPosition].path)
+            musicService!!.mediaPlayer!!.setDataSource(musicList[songPosition].path)
             musicService!!.mediaPlayer!!.prepare()
             musicService!!.mediaPlayer!!.start()
             isPlaying = true
-            binding.PlayPauseBtnPA.setIconResource(R.drawable.pause_icon)
+            binding.PlayPauseButton.setIconResource(R.drawable.pause_icon)
             musicService!!.showNotification(R.drawable.pause_icon)
-            binding.tvseekbarStart.text = formatDuration(musicService!!.mediaPlayer!!.currentPosition.toLong())
-            binding.tvseekbarEnd.text = formatDuration(musicService!!.mediaPlayer!!.duration.toLong())
-            binding.seekBarPA.progress = 0
-            binding.seekBarPA.max = musicService!!.mediaPlayer!!.duration
+            binding.timeStart.text = formatDuration(musicService!!.mediaPlayer!!.currentPosition.toLong())
+            binding.timeEnd.text = formatDuration(musicService!!.mediaPlayer!!.duration.toLong())
+            binding.timeBar.progress = 0
+            binding.timeBar.max = musicService!!.mediaPlayer!!.duration
             musicService!!.mediaPlayer!!.setOnCompletionListener(this)
-            nowPlayingId = musicListPA[songPosition].id
+            nowPlayingId = musicList[songPosition].id
         } catch (e: Exception) {
             return
         }
@@ -100,8 +100,8 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
                 val intent = Intent(this, MusicService::class.java)
                 bindService(intent, this, BIND_AUTO_CREATE)
                 startService(intent)
-                musicListPA = ArrayList()
-                musicListPA.addAll(MainActivity.MusicListMA)
+                musicList = ArrayList()
+                musicList.addAll(MainActivity.MusicListMA)
                 setLayout()
                 createMediaPlayer()
             }
@@ -109,41 +109,41 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
                 val intent = Intent(this, MusicService::class.java)
                 bindService(intent, this, BIND_AUTO_CREATE)
                 startService(intent)
-                musicListPA = ArrayList()
-                musicListPA.addAll(MainActivity.MusicListMA)
+                musicList = ArrayList()
+                musicList.addAll(MainActivity.MusicListMA)
                 setLayout()
                 createMediaPlayer()
             }
             "NowPlaying" -> {
                 setLayout()
-                binding.tvseekbarStart.text = formatDuration(musicService!!.mediaPlayer!!.currentPosition.toLong())
-                binding.tvseekbarEnd.text = formatDuration(musicService!!.mediaPlayer!!.duration.toLong())
-                binding.seekBarPA.progress = musicService!!.mediaPlayer!!.currentPosition
-                binding.seekBarPA.max = musicService!!.mediaPlayer!!.duration
+                binding.timeStart.text = formatDuration(musicService!!.mediaPlayer!!.currentPosition.toLong())
+                binding.timeEnd.text = formatDuration(musicService!!.mediaPlayer!!.duration.toLong())
+                binding.timeBar.progress = musicService!!.mediaPlayer!!.currentPosition
+                binding.timeBar.max = musicService!!.mediaPlayer!!.duration
                 if (isPlaying) {
-                    binding.PlayPauseBtnPA.setIconResource(R.drawable.pause_icon)
+                    binding.PlayPauseButton.setIconResource(R.drawable.pause_icon)
                 } else {
-                    binding.PlayPauseBtnPA.setIconResource(R.drawable.play_icon)
+                    binding.PlayPauseButton.setIconResource(R.drawable.play_icon)
                 }
             }
         }
     }
 
     private fun playMusic() {
-        binding.PlayPauseBtnPA.setIconResource(R.drawable.pause_icon)
+        binding.PlayPauseButton.setIconResource(R.drawable.pause_icon)
         musicService!!.showNotification(R.drawable.pause_icon)
         isPlaying = true
         musicService!!.mediaPlayer!!.start()
     }
 
     private fun pauseMusic() {
-        binding.PlayPauseBtnPA.setIconResource(R.drawable.play_icon)
+        binding.PlayPauseButton.setIconResource(R.drawable.play_icon)
         musicService!!.showNotification(R.drawable.play_icon)
         isPlaying = false
         musicService!!.mediaPlayer!!.pause()
     }
 
-    private fun PrevNextSong(Increment: Boolean) {
+    private fun prevNextSong(Increment: Boolean) {
         if (Increment) {
             setSongPosition(Increment = true)
             setLayout()

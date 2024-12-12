@@ -13,7 +13,7 @@
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/backBtnPA"
+            android:id="@+id/backButton"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:src="@drawable/prev_icon"
@@ -33,17 +33,16 @@
 
     </LinearLayout>
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/songImagePA"
+        android:id="@+id/songImageDisplay"
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        app:strokeColor="#EA2E2E"
-        app:strokeWidth="5dp"
-        android:contentDescription="Album cover art" />
+        android:contentDescription="Album cover art"
+        android:src="@mipmap/ic_launcher"/>
 
     <TextView
-        android:id="@+id/songNamePA"
+        android:id="@+id/songName"
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:layout_marginEnd="10dp"
@@ -62,16 +61,17 @@
         android:gravity="center">
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/previousbtnPA"
+            android:id="@+id/previousPlayer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:icon="@drawable/prev_icon"
-            app:iconSize="20dp"
+            app:iconSize="30dp"
             android:backgroundTint="#D3D3D3"
+            app:iconTint="@color/white"
             android:contentDescription="Previous song" />
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/PlayPauseBtnPA"
+            android:id="@+id/PlayPauseButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:icon="@drawable/pause_icon"
@@ -82,12 +82,13 @@
             android:contentDescription="Play or Pause song" />
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/nextbtnPA"
+            android:id="@+id/nextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:icon="@drawable/next_icon"
             app:iconSize="30dp"
             android:backgroundTint="#D3D3D3"
+            app:iconTint="@color/white"
             android:contentDescription="Next song" />
     </LinearLayout>
 
@@ -97,7 +98,7 @@
         android:orientation="horizontal"
         android:layout_margin="20dp">
         <TextView
-            android:id="@+id/tvseekbarStart"
+            android:id="@+id/timeStart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="00:00"
@@ -105,13 +106,13 @@
             android:textSize="15sp" />
 
         <androidx.appcompat.widget.AppCompatSeekBar
-            android:id="@+id/seekBarPA"
+            android:id="@+id/timeBar"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1" />
 
         <TextView
-            android:id="@+id/tvseekbarEnd"
+            android:id="@+id/timeEnd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="loading"
@@ -130,4 +131,3 @@
 
     </LinearLayout>
 </LinearLayout>
-
