@@ -52,55 +52,27 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, PlaylistActivity::class.java)
             startActivity(intent)
         }
-        // Check for storage permissions
-        if (ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.READ_EXTERNAL_STORAGE
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            loadSongsFromDevice()
-        } else {
-            requestStoragePermission()
-        }
 
-        // Favorites button listener
-        binding.favoriteE.setOnClickListener {
-            val favoriteSongs = songs.filter { it.isFavorite }
-            if (favoriteView) {
-                favoriteView = false
-                Toast.makeText(this, "Returning", Toast.LENGTH_SHORT).show()
-                updateRecyclerView(songs)
-            } else {
-                if (favoriteSongs.isEmpty()) {
-                    Toast.makeText(this, "No favorite songs available", Toast.LENGTH_SHORT).show()
-                } else {
-                    favoriteView = true
-                    Toast.makeText(this, "Showing Favorites", Toast.LENGTH_SHORT).show()
-                    updateRecyclerView(favoriteSongs)
-                }
-            }
-        }
-
-        // new code
-        val themeEditor = getSharedPreferences("THEMES", MODE_PRIVATE)
-        themeIndex = themeEditor.getInt("themeIndex", 0)
-
+        // Request runtime permissions
         requestRuntimePermission()
 
+        // Initialize RecyclerView
         binding.songsRecyclerView.setHasFixedSize(true)
-        binding.songsRecyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
+        binding.songsRecyclerView.layoutManager = LinearLayoutManager(this)
 
-        val sortEditor = getSharedPreferences("SORTING", MODE_PRIVATE)
-        sortOrder = sortEditor.getInt("sortOrder", 0)
-
+        // Load songs directly
         MusicListMA = getAllAudio()
 
+        // Initialize MusicPlayer instance
+        musicPlayer = MusicPlayer(this, MusicListMA)
+
         // Adapter
-        musicAdapter = SongAdapter(this@MainActivity, MusicListMA){song->
+        musicAdapter = SongAdapter(this@MainActivity, MusicListMA) { song ->
             musicPlayer.playSong(song)
         }
         binding.songsRecyclerView.adapter = musicAdapter
 
+        // Shuffle button listener
         binding.shuffleE.setOnClickListener {
             if (MusicListMA.isNotEmpty()) {
                 val randomIndex = (0 until MusicListMA.size).random() // Generate a random index
@@ -113,6 +85,23 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        // Favorites button listener
+        binding.favoriteE.setOnClickListener {
+            val favoriteSongs = MusicListMA.filter { it.isFavorite }
+            if (favoriteView) {
+                favoriteView = false
+                Toast.makeText(this, "Returning", Toast.LENGTH_SHORT).show()
+                musicAdapter.updateMusicList(MusicListMA)
+            } else {
+                if (favoriteSongs.isEmpty()) {
+                    Toast.makeText(this, "No favorite songs available", Toast.LENGTH_SHORT).show()
+                } else {
+                    favoriteView = true
+                    Toast.makeText(this, "Showing Favorites", Toast.LENGTH_SHORT).show()
+                    musicAdapter.updateMusicList(ArrayList(favoriteSongs))
+                }
+            }
+        }
 
         // For navigation drawer
         toggle = ActionBarDrawerToggle(this, binding.root, R.string.open, R.string.close)
@@ -121,6 +110,7 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
+/*
     private fun requestStoragePermission() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(
                 this,
@@ -136,9 +126,10 @@ class MainActivity : AppCompatActivity() {
             REQUEST_CODE
         )
     }
+
     private fun loadSongsFromDevice() {
-        songs.clear()
-        songs.addAll(getAllAudio())
+        MusicListMA.clear()
+        MusicListMA.addAll(getAllAudio())
 
         musicPlayer = MusicPlayer(this, songs)
 
@@ -155,13 +146,7 @@ class MainActivity : AppCompatActivity() {
         binding.songsRecyclerView.adapter = songAdapter
     }
 
-
-    private fun formatDuration(duration: Long): String {
-        val minutes = (duration / 1000) / 60
-        val seconds = (duration / 1000) % 60
-        return String.format("%d:%02d", minutes, seconds)
-    }
-
+ */
 
 
     // new code
@@ -284,6 +269,27 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -65,6 +65,4 @@
         android:clickable="true"
         android:padding="8dp" />
 
-
-
 </LinearLayout>
