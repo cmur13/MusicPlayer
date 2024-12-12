@@ -87,8 +87,9 @@ class MainActivity : AppCompatActivity() {
             val favoriteSongs = MusicListMA.filter { it.isFavorite }
             if (favoriteView) {
                 favoriteView = false
-                Toast.makeText(this, "Returning", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Returning to full list", Toast.LENGTH_SHORT).show()
                 musicAdapter.updateMusicList(MusicListMA)
+                println("Switching to full list: ${MusicListMA.size} songs")
             } else {
                 if (favoriteSongs.isEmpty()) {
                     Toast.makeText(this, "No favorite songs available", Toast.LENGTH_SHORT).show()
@@ -96,9 +97,11 @@ class MainActivity : AppCompatActivity() {
                     favoriteView = true
                     Toast.makeText(this, "Showing Favorites", Toast.LENGTH_SHORT).show()
                     musicAdapter.updateMusicList(ArrayList(favoriteSongs))
+                    println("Switching to favorites: ${favoriteSongs.size} songs")
                 }
             }
         }
+
 
         // For navigation drawer
         toggle = ActionBarDrawerToggle(this, binding.root, R.string.open, R.string.close)
@@ -228,34 +231,4 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

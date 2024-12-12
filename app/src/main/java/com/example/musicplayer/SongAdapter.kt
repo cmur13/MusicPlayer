@@ -12,10 +12,11 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.widget.PopupMenu
 import androidx.core.content.ContextCompat
+import com.example.musicplayer.MainActivity.Companion.MusicListMA
 
 class SongAdapter(
     private val context: Context,
-    private val songs: ArrayList<Song>,
+    private var songs: ArrayList<Song>,
     private val onSongClick: (Song) -> Unit // Callback function for click events
 ) : RecyclerView.Adapter<SongAdapter.SongViewHolder>() {
 
@@ -60,19 +61,25 @@ class SongAdapter(
         }
 
         holder.favoriteIcon.setOnClickListener {
-            song.isFavorite = !song.isFavorite // Toggle favorite status
-            // Save the updated favorite status
+            song.isFavorite = !song.isFavorite
             saveFavoriteState(holder.itemView.context, song.title, song.isFavorite)
 
-            // Update the icon and show toast
+            // Sync the change back to MusicListMA
+            val index = MusicListMA.indexOfFirst { it.title == song.title }
+            if (index != -1) {
+                MusicListMA[index].isFavorite = song.isFavorite
+            }
+
+            // Update icon and show a message
             if (song.isFavorite) {
-                holder.favoriteIcon.setImageResource(R.drawable.favourite_icon) // Filled star
-                Toast.makeText(holder.itemView.context, "Marked as favorite", Toast.LENGTH_SHORT).show()
+                holder.favoriteIcon.setImageResource(R.drawable.favourite_icon)
+                Toast.makeText(context, "Marked as favorite", Toast.LENGTH_SHORT).show()
             } else {
-                holder.favoriteIcon.setImageResource(R.drawable.ic_favorite_border) // Empty star
-                Toast.makeText(holder.itemView.context, "Removed from favorites", Toast.LENGTH_SHORT).show()
+                holder.favoriteIcon.setImageResource(R.drawable.ic_favorite_border)
+                Toast.makeText(context, "Removed from favorites", Toast.LENGTH_SHORT).show()
             }
         }
+
 
         holder.moreIcon.setOnClickListener{
             val popupMenu = PopupMenu(holder.itemView.context,holder.moreIcon)
@@ -106,9 +113,8 @@ class SongAdapter(
     override fun getItemCount(): Int {
         return songs.size
     }
-    fun updateMusicList(searchList: ArrayList<Song>) {
-        songs.clear()
-        songs.addAll(searchList)
+    fun updateMusicList(newList: ArrayList<Song>) {
+        songs = newList
         notifyDataSetChanged()
     }
 }
